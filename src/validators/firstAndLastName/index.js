@@ -1,0 +1,1 @@
+export { FirstAndLastNameValidator } from "./firstAndLastNameValidator.js"

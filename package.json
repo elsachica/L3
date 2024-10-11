@@ -1,0 +1,39 @@
+{
+  "name": "l2",
+  "version": "1.0.0",
+  "description": "Skapa en modul",
+  "main": "src/validators/validator.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/validators/validator.js",
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elsachica/L2.git"
+  },
+  "keywords": [
+    "1DV610",
+    "assignment",
+    "JavaScript",
+    "module"
+  ],
+  "author": "Elsa Gas Wikström",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elsachica/L2/issues"
+  },
+  "homepage": "https://github.com/elsachica/L2#readme",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "babel-jest": "^29.7.0",
+    "eslint": "^9.9.1",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
