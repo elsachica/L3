@@ -10,7 +10,7 @@ export class PostalCodeValidator {
    * @returns {string} [return.error] - The error message if the postal code is invalid.
    * @returns {string} [return.country] - The country of the valid postal code.
    */
-  validatePostalCode(postalCode) {
+  validate(postalCode) {
     if (!postalCode) {
       return { isValid: false, error: "Postal code is required." }
     }

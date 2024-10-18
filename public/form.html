@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valideringsformulär</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f5f5f5;
+    }
+
+    .formbold-main-wrapper {
+      max-width: 550px;
+      width: 100%;
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #07074D;
+      text-align: center;
+    }
+
+    .formbold-form-input {
+      width: 100%;
+      padding: 13px 22px;
+      border-radius: 5px;
+      border: 1px solid #DDE3EC;
+      background: #FFFFFF;
+      font-weight: 500;
+      font-size: 16px;
+      color: #536387;
+      outline: none;
+      margin-bottom: 16px;
+    }
+
+    .formbold-form-input:focus {
+      border-color: #6a64f1;
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .formbold-form-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #6A64F1;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+
+    .formbold-form-btn:hover {
+      background-color: #5a54d1;
+    }
+
+    .formbold-form-input-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+      /* Gör plats för felmeddelandet */
+    }
+
+    .error-message {
+      position: absolute;
+      top: 50%;
+      right: -200px;
+      /* Du kan justera detta beroende på layout */
+      transform: translateY(-50%);
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 6px 12px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      display: none;
+      /* Döljer meddelandet till en början */
+    }
+
+    .error-message.show {
+      display: inline-block;
+      /* Visar när det är ett fel */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="formbold-main-wrapper">
+    <h1>Fyll i dina uppgifter</h1>
+    <form id="verificationForm">
+      <div class="formbold-form-input-wrapper">
+        <label for="name">Namn:</label>
+        <input type="text" id="name" name="name" required class="formbold-form-input">
+        <span id="nameError" class="error-message"></span>
+      </div>
+      <div class="formbold-form-input-wrapper">
+        <label for="dob">Födelsedatum:</label>
+        <input type="date" id="dob" name="dob" required class="formbold-form-input">
+        <span id="dobError" class="error-message"></span>
+      </div>
+      <div class="formbold-form-input-wrapper">
+        <label for="phone">Telefonnummer:</label>
+        <input type="tel" id="phone" name="phone" required class="formbold-form-input">
+        <span id="phoneError" class="error-message"></span>
+      </div>
+      <div class="formbold-form-input-wrapper">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required class="formbold-form-input">
+        <span id="emailError" class="error-message"></span>
+      </div>
+      <div class="formbold-form-input-wrapper">
+        <label for="address">Adress:</label>
+        <input type="text" id="address" name="address" required class="formbold-form-input">
+        <span id="addressError" class="error-message"></span>
+      </div>
+      <div class="formbold-form-input-wrapper">
+        <label for="postalCode">Postnummer:</label>
+        <input type="text" id="postalCode" name="postalCode" required class="formbold-form-input">
+        <span id="postalCodeError" class="error-message"></span>
+      </div>
+      <div class="formbold-form-input-wrapper">
+        <label for="city">Stad:</label>
+        <input type="text" id="city" name="city" required class="formbold-form-input">
+        <span id="cityError" class="error-message"></span>
+      </div>
+      <button type="submit" class="formbold-form-btn">Verifiera</button>
+    </form>
+  </div>
+
+  <script type="module" src="/js/form.js"></script>
+</body>
+
+</html>

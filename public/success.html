@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifiering lyckades!</title>
+</head>
+
+<body>
+  <h1>Verifiering klar!</h1>
+  <p id="userDetails"></p>
+  <button id="goToIndex">Tillbaka till startsidan</button>
+
+  <script>
+    // Hämta query-parametrar från URL:en
+    const params = new URLSearchParams(window.location.search)
+    const email = params.get('email')
+    const phone = params.get('phone')
+    const address = params.get('address')
+    const postalCode = params.get('postalCode')
+    const city = params.get('city')
+    const dob = params.get('dob')
+
+    // Visa användarens detaljer med radbrytningar
+    document.getElementById('userDetails').innerHTML = `
+      Din e-post: ${email}<br>
+      Ditt telefonnummer: ${phone}<br>
+      Din adress: ${address}<br>
+      Ditt postnummer: ${postalCode}<br>
+      Din stad: ${city}<br>
+      Ditt födelsedatum: ${dob}
+    `
+
+    // Lyssna på knappen för att gå tillbaka till startsidan
+    document.getElementById('goToIndex').addEventListener('click', () => {
+      window.location.href = "/"
+    })
+  </script>
+</body>
+
+</html>

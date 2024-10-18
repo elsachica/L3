@@ -10,7 +10,7 @@ export class PasswordValidator {
    * @returns {string} [return.error] - The error message if the password is invalid.
    * @returns {string} [return.message] - The message explaining why the password is invalid.
    */
-  validatePassword(password) {
+  validate(password) {
     if (!password) {
       return { isValid: false, error: "Password is required." }
     }
@@ -23,22 +23,22 @@ export class PasswordValidator {
     const noSpaceRegex = /^\S*$/ // Forbidden to contain spaces
 
     if (!lengthRegex.test(password)) {
-      return { isValid: false, message: "Password must be between 6 and 16 characters long." }
+      return { isValid: false, error: "Password must be between 6 and 16 characters long." }
     }
     if (!digitRegex.test(password)) {
-      return { isValid: false, message: "Password must include at least one digit." }
+      return { isValid: false, error: "Password must include at least one digit." }
     }
     if (!specialCharRegex.test(password)) {
-      return { isValid: false, message: "Password must include at least one special character." }
+      return { isValid: false, error: "Password must include at least one special character." }
     }
     if (!upperCaseRegex.test(password)) {
-      return { isValid: false, message: "Password must include at least one uppercase letter." }
+      return { isValid: false, error: "Password must include at least one uppercase letter." }
     }
     if (!lowerCaseRegex.test(password)) {
-      return { isValid: false, message: "Password must include at least one lowercase letter." }
+      return { isValid: false, error: "Password must include at least one lowercase letter." }
     }
     if (!noSpaceRegex.test(password)) {
-      return { isValid: false, message: "Password must not contain spaces." }
+      return { isValid: false, error: "Password must not contain spaces." }
     }
     
     return { isValid: true }

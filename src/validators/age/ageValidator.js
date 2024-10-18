@@ -12,8 +12,8 @@ export class AgeValidator extends DateFormatValidator {
    * @returns {boolean} return.isValid - Indicates if the date format is valid and age is appropriate.
    * @returns {string} [return.error] - The error message if validation fails.
    */
-  validateAge(dateFormat) {
-    const dateValidation = this.validateDateFormat(dateFormat)
+  validate(dateFormat) {
+    const dateValidation = super.validate(dateFormat)
     
     if (!dateValidation.isValid) {
       return dateValidation
@@ -30,11 +30,11 @@ export class AgeValidator extends DateFormatValidator {
       age--
     }
     if (age < 3) {
-      return { isValid: false, message: "You must be at least 3 years old to create an account." }
+      return { isValid: false, error: "You must be at least 3 years old to create an account." }
     }
     if (age > 120) {
-      return { isValid: false, message: "You cannot be older than 120 years to create an account." }
+      return { isValid: false, error: "You cannot be older than 120 years to create an account." }
     }
-    return { isValid: true, message: "Age is valid." }
+    return { isValid: true, error: "Age is valid." }
   }
 }

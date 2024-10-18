@@ -7,7 +7,7 @@ export class FirstAndLastNameValidator {
    * @returns {boolean} return.isValid - Indicates if the names are valid.
    * @returns {string} [return.error] - The error message if validation fails.
    */
-  validateFirstAndLastName(firstName, lastName) {
+  validate(firstName, lastName) {
 
     const nameRegex = /^[A-Za-zåäöÅÄÖ]+$/ // Only letters allowed
     const maxLength = 80 // Maximum length of the name

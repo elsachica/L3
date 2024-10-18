@@ -9,7 +9,7 @@ export class StreetValidator {
    * @returns {boolean} return.isValid - Indicates if the street name is valid.
    * @returns {string} [return.error] - The error message if the street name is invalid.
    */
-  validateStreet(street) {
+  validate(street) {
     if (!street) {
       return { isValid: false, error: "Street name is required." }
     }

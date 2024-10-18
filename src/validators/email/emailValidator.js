@@ -9,7 +9,7 @@ export class EmailValidator {
    * @returns {boolean} return.isValid - Indicates if the email address is valid.
    * @returns {string} [return.error] - The error message if the email address is invalid.
    */
-  validateEmail(email) {
+  validate(email) {
     if (!email) {
       return { isValid: false, error: "Email is required." }
     }

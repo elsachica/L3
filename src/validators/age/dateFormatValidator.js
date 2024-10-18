@@ -11,7 +11,7 @@ export class DateFormatValidator {
    * @returns {string} [return.format] - The format of the valid date.
    * @returns {string} [return.message] - The message explaining why the date format is invalid.
    */
-  validateDateFormat(dateFormat) {
+  validate(dateFormat) {
     if (!dateFormat) {
       return { isValid: false, error: "Date is required." }
     }
@@ -24,7 +24,7 @@ export class DateFormatValidator {
     } else if (ddMmYyyyRegex.test(dateFormat)) {
       return { isValid: true, format: "DD/MM/YYYY" }
     } else {
-      return { isValid: false, message: "Not a valid date format. Expected formats: YYYY-MM-DD or DD/MM/YYYY." }
+      return { isValid: false, error: "Not a valid date format. Expected formats: YYYY-MM-DD or DD/MM/YYYY." }
     }
   }
 }

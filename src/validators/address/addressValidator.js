@@ -22,18 +22,18 @@ export class AddressValidator {
    * @returns {boolean} return.isValid - Indicates if the address is valid.
    * @returns {string} [return.error] - The error message if the address is invalid.
    */
-  validateAddress({ street, postalCode, city }) {
-    const streetValidation = this.streetValidator.validateStreet(street)
+  validate({ street, postalCode, city }) {
+    const streetValidation = this.streetValidator.validate(street)
     if (!streetValidation.isValid) {
       return streetValidation
     }
 
-    const postalCodeValidation = this.postalCodeValidator.validatePostalCode(postalCode)
+    const postalCodeValidation = this.postalCodeValidator.validate(postalCode)
     if (!postalCodeValidation.isValid) {
       return postalCodeValidation
     }
 
-    const cityValidation = this.cityValidator.validateCity(city)
+    const cityValidation = this.cityValidator.validate(city)
     if (!cityValidation.isValid) {
       return cityValidation
     }

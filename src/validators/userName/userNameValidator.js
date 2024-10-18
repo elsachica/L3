@@ -10,7 +10,7 @@ export class UserNameValidator {
    * @returns {string} [return.error] - The error message if the username is invalid.
    * @returns {string} [return.message] - The message explaining why the username is invalid.
    */
-  validateUserName(userName) {
+  validate(userName) {
     if (!userName) {
       return { isValid: false, error: "Username is required." }
     }
@@ -21,16 +21,16 @@ export class UserNameValidator {
     const forbiddenWords = ["admin", "root", "superuser"] // User name cannot contain these words
 
     if (!lengthRegex.test(userName)) {
-      return { isValid: false, message: "Username must be between 3 and 16 characters long." }
+      return { isValid: false, error: "Username must be between 3 and 16 characters long." }
     }
     if (!noSpaceRegex.test(userName)) {
-      return { isValid: false, message: "Username must not contain spaces." }
+      return { isValid: false, error: "Username must not contain spaces." }
     }
     if (forbiddenCharsRegex.test(userName)) {
-      return { isValid: false, message: "Username must not contain forbidden special characters." }
+      return { isValid: false, error: "Username must not contain forbidden special characters." }
     }
     if (forbiddenWords.some(word => userName.toLowerCase().includes(word))) {
-      return { isValid: false, message: "Username contains forbidden words." }
+      return { isValid: false, error: "Username contains forbidden words." }
     }
 
     return { isValid: true }

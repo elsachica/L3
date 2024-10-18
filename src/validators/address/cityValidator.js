@@ -9,7 +9,7 @@ export class CityValidator {
    * @returns {boolean} return.isValid - Indicates if the city name is valid.
    * @returns {string} [return.error] - The error message if the city name is invalid.
    */
-  validateCity(city) {
+  validate(city) {
     if (!city) {
       return { isValid: false, error: "City name is required." }
     }

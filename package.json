@@ -1,39 +1,41 @@
 {
-  "name": "l2",
+  "name": "l3-app",
   "version": "1.0.0",
-  "description": "Skapa en modul",
-  "main": "src/validators/validator.js",
+  "description": "App baserad på modulen från L2",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "node src/validators/validator.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elsachica/L2.git"
+    "url": "git+https://github.com/elsachica/L3.git"
   },
   "keywords": [
     "1DV610",
     "assignment",
     "JavaScript",
-    "module"
+    "app"
   ],
   "author": "Elsa Gas Wikström",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elsachica/L2/issues"
+    "url": "https://github.com/elsachica/L3/issues"
   },
-  "homepage": "https://github.com/elsachica/L2#readme",
+  "homepage": "https://github.com/elsachica/L3#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "babel-jest": "^29.7.0",
     "eslint": "^9.9.1",
+    "nodemon": "^3.1.7",
     "prettier": "^3.3.3"
-  },
-  "dependencies": {
-    "jest": "^29.7.0"
   }
 }

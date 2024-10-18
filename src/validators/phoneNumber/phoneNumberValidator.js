@@ -10,7 +10,7 @@ export class PhoneNumberValidator {
    * @returns {string} [return.error] - The error message if the phone number is invalid.
    * @returns {string} [return.format] - The format of the valid phone number.
    */
-  validatePhoneNumber(phoneNumber) {
+  validate(phoneNumber) {
     if (!phoneNumber) {
       return { isValid: false, error: "Phone number is required." }
     }
