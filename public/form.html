@@ -29,6 +29,7 @@
       padding: 24px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative; /* Lägg till position: relative för att placera felmeddelanden relativt till denna div */
     }
 
     h1 {
@@ -82,6 +83,8 @@
       position: absolute;
       top: 50%;
       right: -200px;
+      left: 90%;
+      margin-left: 10px;
       /* Du kan justera detta beroende på layout */
       transform: translateY(-50%);
       background-color: #f8d7da;
@@ -122,7 +125,7 @@
       </div>
       <div class="formbold-form-input-wrapper">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required class="formbold-form-input">
+        <input type="email" id="email" name="email" required class="formbold-form-input" autocomplete="off">
         <span id="emailError" class="error-message"></span>
       </div>
       <div class="formbold-form-input-wrapper">
