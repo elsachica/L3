@@ -52,14 +52,10 @@ Once the project is set up, you can run it locally:
 Here are some GIFs demonstrating how to use the application:
 
 *Submitting the form with valid data.*  
-<video width="600" controls>
-  <source src="img/success_gif.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![Submitting the form with invalid data](img/succsess_gif.gif)
 
 *Submitting the form with invalid data and the corresponding error messages.*  
-[Submitting the form with invalid data](img/invalid_gif.mp4)
-
+![Submitting the form with invalid data](img/failed_gif.gif)
 
 ## File structure
    ```bash
