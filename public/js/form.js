@@ -1,6 +1,5 @@
-import { EmailValidator, PhoneNumberValidator, StreetValidator, PostalCodeValidator, CityValidator, DateFormatValidator, AgeValidator } from "../../src/validators/validator.js"
+import { FirstAndLastNameValidator, EmailValidator, PhoneNumberValidator, StreetValidator, PostalCodeValidator, CityValidator, DateFormatValidator, AgeValidator } from "../../src/validators/validator.js"
 
-// Skapa instanser av dina validatorer
 const emailValidator = new EmailValidator()
 const phoneValidator = new PhoneNumberValidator()
 const streetValidator = new StreetValidator()
@@ -8,6 +7,8 @@ const postalCodeValidator = new PostalCodeValidator()
 const cityValidator = new CityValidator()
 const dateFormatValidator = new DateFormatValidator()
 const ageValidator = new AgeValidator()
+const nameValidator = new FirstAndLastNameValidator() 
+
 
 document.getElementById("verificationForm").addEventListener("submit", function (e) {
   e.preventDefault() // Hindra vanlig formulärinlämning
@@ -15,6 +16,7 @@ document.getElementById("verificationForm").addEventListener("submit", function 
   let valid = true
 
   // Rensa tidigare felmeddelanden
+  document.getElementById("nameError").textContent = ""
   document.getElementById("emailError").textContent = ""
   document.getElementById("phoneError").textContent = ""
   document.getElementById("addressError").textContent = ""
@@ -23,6 +25,7 @@ document.getElementById("verificationForm").addEventListener("submit", function 
   document.getElementById("dobError").textContent = ""
 
   // Hämta värden från formuläret
+  const name = document.getElementById("name").value
   const email = document.getElementById("email").value
   const phone = document.getElementById("phone").value
   const address = document.getElementById("address").value
@@ -30,6 +33,20 @@ document.getElementById("verificationForm").addEventListener("submit", function 
   const city = document.getElementById("city").value
   const dob = document.getElementById("dob").value
 
+
+  const [firstName, lastName] = name.split(" ")  // Split on space
+
+  // Validera namn
+  const nameResult = nameValidator.validate(firstName, lastName)
+  const nameErrorElement = document.getElementById("nameError")
+  if (!nameResult.isValid) {
+    nameErrorElement.textContent = nameResult.error
+    nameErrorElement.classList.add("show")
+    valid = false
+  } else {
+    nameErrorElement.classList.remove("show")
+  }
+  
     // Validera e-post
     const emailResult = emailValidator.validate(email)
     const emailErrorElement = document.getElementById("emailError")

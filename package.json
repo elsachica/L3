@@ -1,7 +1,7 @@
 {
   "name": "l3-app",
   "version": "1.0.0",
-  "description": "App baserad på modulen från L2",
+  "description": "Applikation till valideringsmodulen baserad på modulen från L2",
   "main": "src/app.js",
   "type": "module",
   "scripts": {

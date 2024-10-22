@@ -5,12 +5,111 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verifiering lyckades!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f5f5f5;
+    }
+
+    .formbold-main-wrapper {
+      max-width: 550px;
+      width: 100%;
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #07074D;
+      text-align: center;
+    }
+
+    .formbold-form-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #6A64F1;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+
+    .formbold-form-btn:hover {
+      background-color: #5a54d1;
+    }
+
+    .formbold-form-input-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+      padding: 16px;
+      border: 1px solid #DDE3EC;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: transparent;
+      color: #6A64F1;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .copy-btn:hover {
+      color: #5a54d1;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Verifiering klar!</h1>
-  <p id="userDetails"></p>
-  <button id="goToIndex">Tillbaka till startsidan</button>
+  <div class="formbold-main-wrapper">
+    <h1>Verifiering klar!</h1>
+    <div class="formbold-form-input-wrapper">
+      <p>Din e-post: <span id="emailDetail"></span></p>
+      <button class="copy-btn" onclick="copyToClipboard('emailDetail')"><i class="fas fa-copy"></i></button>
+    </div>
+    <div class="formbold-form-input-wrapper">
+      <p>Ditt telefonnummer: <span id="phoneDetail"></span></p>
+      <button class="copy-btn" onclick="copyToClipboard('phoneDetail')"><i class="fas fa-copy"></i></button>
+    </div>
+    <div class="formbold-form-input-wrapper">
+      <p>Din adress: <span id="addressDetail"></span></p>
+      <button class="copy-btn" onclick="copyToClipboard('addressDetail')"><i class="fas fa-copy"></i></button>
+    </div>
+    <div class="formbold-form-input-wrapper">
+      <p>Ditt postnummer: <span id="postalCodeDetail"></span></p>
+      <button class="copy-btn" onclick="copyToClipboard('postalCodeDetail')"><i class="fas fa-copy"></i></button>
+    </div>
+    <div class="formbold-form-input-wrapper">
+      <p>Din stad: <span id="cityDetail"></span></p>
+      <button class="copy-btn" onclick="copyToClipboard('cityDetail')"><i class="fas fa-copy"></i></button>
+    </div>
+    <div class="formbold-form-input-wrapper">
+      <p>Ditt födelsedatum: <span id="dobDetail"></span></p>
+      <button class="copy-btn" onclick="copyToClipboard('dobDetail')"><i class="fas fa-copy"></i></button>
+    </div>
+    <button id="goToIndex" class="formbold-form-btn">Tillbaka till startsidan</button>
+  </div>
 
   <script>
     // Hämta query-parametrar från URL:en
@@ -22,15 +121,21 @@
     const city = params.get('city')
     const dob = params.get('dob')
 
-    // Visa användarens detaljer med radbrytningar
-    document.getElementById('userDetails').innerHTML = `
-      Din e-post: ${email}<br>
-      Ditt telefonnummer: ${phone}<br>
-      Din adress: ${address}<br>
-      Ditt postnummer: ${postalCode}<br>
-      Din stad: ${city}<br>
-      Ditt födelsedatum: ${dob}
-    `
+    // Visa användarens detaljer
+    document.getElementById('emailDetail').textContent = email
+    document.getElementById('phoneDetail').textContent = phone
+    document.getElementById('addressDetail').textContent = address
+    document.getElementById('postalCodeDetail').textContent = postalCode
+    document.getElementById('cityDetail').textContent = city
+    document.getElementById('dobDetail').textContent = dob
+
+    // Funktion för att kopiera innehåll till urklipp
+    function copyToClipboard(elementId) {
+      const text = document.getElementById(elementId).textContent
+      navigator.clipboard.writeText(text).catch(err => {
+        console.error('Kunde inte kopiera text: ', err)
+      })
+    }
 
     // Lyssna på knappen för att gå tillbaka till startsidan
     document.getElementById('goToIndex').addEventListener('click', () => {
