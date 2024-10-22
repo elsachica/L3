@@ -1,32 +1,61 @@
-import express from "express"  // ES6 import
+import express from "express" 
 import path from "path"
-import { fileURLToPath } from "url"  // Behövs för att hantera __dirname med ES6-moduler
+import { fileURLToPath } from "url" 
+
+/**
+ * @fileoverview Main file for the Express application handling the validation module.
+ * @module app
+ * @requires express
+ * @requires path
+ * @requires url
+ * @author Elsa Gas Wikström
+ */
 
 const app = express()
 
-// Hantera __dirname i ES-moduler
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Serva statiska filer från 'public' mappen
-app.use(express.static(path.join(__dirname, "../public"))) // Korrigerad sökväg
+/**
+ * Middleware to serve static files from the 'public' directory.
+ */
+app.use(express.static(path.join(__dirname, "../public"))) 
 
-// Serva statiska filer från 'src' mappen
-app.use("/src", express.static(path.join(__dirname, "../src"))) // Lägg till denna rad
+/**
+ * Middleware to serve static files from the 'src' directory.
+ */
+app.use("/src", express.static(path.join(__dirname, "../src")))
 
-// Routing för startsidan
+/**
+ * Route for the home page.
+ * @name get/
+ * @function
+ * @memberof module:app
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "index.html")) // Korrigerad sökväg
+  res.sendFile(path.join(__dirname, "../public", "index.html"))
 })
 
-// Routing för valideringsformuläret
+/**
+ * Route for the validation form.
+ * @name get/form
+ * @function
+ * @memberof module:app
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 app.get("/form", (req, res) => {
-  const formPath = path.join(__dirname, "../public", "form.html") // Korrigerad sökväg
-  console.log("Serving form from:", formPath)
+  const formPath = path.join(__dirname, "../public", "form.html")
   res.sendFile(formPath)
 })
 
-// Starta servern på port 3000
+/**
+ * Starts the server on port 3000.
+ * @function
+ * @memberof module:app
+ */
 app.listen(3000, () => {
-  console.log("Servern kör på http://localhost:3000")
+  console.log("Server running at http://localhost:3000")
 })
