@@ -39,7 +39,7 @@ class FormValidator {
    * @private
    */
   async handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     const valid = await this.validateForm()
 
     if (valid) {
