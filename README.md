@@ -6,11 +6,11 @@ This project is a web application for validating user input through a form. The 
 
 - Phone numbers
 - Email addresses
-- Names
+- First and last name
 - Street addresses
 - Postal codes
 - City
-- Date of birth and age
+- Age
 
 The application provides real-time feedback to the user and ensures the data is correctly formatted before redirecting to a success page if all inputs are valid.
 
