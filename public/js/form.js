@@ -19,17 +19,18 @@ import {
  * Elsa Gas Wikström
  */
 
-class FormValidator {
-  #emailValidator = new EmailValidator()
-  #phoneValidator = new PhoneNumberValidator()
-  #streetValidator = new StreetValidator()
-  #postalCodeValidator = new PostalCodeValidator()
-  #cityValidator = new CityValidator()
-  #dateFormatValidator = new DateFormatValidator()
-  #ageValidator = new AgeValidator()
-  #nameValidator = new FirstAndLastNameValidator()
 
+class FormValidator {
   constructor(formId) {
+    this.emailValidator = new EmailValidator()
+    this.phoneValidator = new PhoneNumberValidator()
+    this.streetValidator = new StreetValidator()
+    this.postalCodeValidator = new PostalCodeValidator()
+    this.cityValidator = new CityValidator()
+    this.dateFormatValidator = new DateFormatValidator()
+    this.ageValidator = new AgeValidator()
+    this.nameValidator = new FirstAndLastNameValidator()
+
     this.form = document.getElementById(formId)
     this.form.addEventListener("submit", (e) => this.handleSubmit(e))
   }
@@ -68,19 +69,19 @@ class FormValidator {
       const [firstName, lastName] = formValues.name.split(" ")
 
       // Validate each field
-      valid &= this.validateField(this.#nameValidator.validate(firstName, lastName), "nameError")
-      valid &= this.validateField(this.#emailValidator.validate(formValues.email), "emailError")
-      valid &= this.validateField(this.#phoneValidator.validate(formValues.phone), "phoneError")
-      valid &= this.validateField(this.#streetValidator.validate(formValues.address), "addressError")
-      valid &= this.validateField(this.#postalCodeValidator.validate(formValues.postalCode), "postalCodeError")
-      valid &= this.validateField(this.#cityValidator.validate(formValues.city), "cityError")
+      valid &= this.validateField(this.nameValidator.validate(firstName, lastName), "nameError")
+      valid &= this.validateField(this.emailValidator.validate(formValues.email), "emailError")
+      valid &= this.validateField(this.phoneValidator.validate(formValues.phone), "phoneError")
+      valid &= this.validateField(this.streetValidator.validate(formValues.address), "addressError")
+      valid &= this.validateField(this.postalCodeValidator.validate(formValues.postalCode), "postalCodeError")
+      valid &= this.validateField(this.cityValidator.validate(formValues.city), "cityError")
       
-      const dateFormatResult = this.#dateFormatValidator.validate(formValues.dob)
+      const dateFormatResult = this.dateFormatValidator.validate(formValues.dob)
       valid &= this.validateField(dateFormatResult, "dobError")
       
       // Validate age if date format is valid
       if (dateFormatResult.isValid) {
-        valid &= this.validateField(this.#ageValidator.validate(formValues.dob), "dobError")
+        valid &= this.validateField(this.ageValidator.validate(formValues.dob), "dobError")
       }
     } catch (error) {
       throw new Error("Error during form validation: " + error.message)
