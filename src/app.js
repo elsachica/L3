@@ -34,12 +34,11 @@ app.use("/src", express.static(path.join(__dirname, "../src")))
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
   try {
     res.sendFile(path.join(__dirname, "../public", "index.html"))
   } catch (error) {
-    console.error("Error serving the home page:", error)
-    res.status(500).send("Internal Server Error")
+    next(error)
   }
 })
 
@@ -51,13 +50,12 @@ app.get("/", (req, res) => {
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */
-app.get("/form", (req, res) => {
+app.get("/form", (req, res, next) => {
   try {
     const formPath = path.join(__dirname, "../public", "form.html")
     res.sendFile(formPath)
   } catch (error) {
-    console.error("Error serving the form page:", error)
-    res.status(500).send("Internal Server Error")
+    next(error)
   }
 })
 
