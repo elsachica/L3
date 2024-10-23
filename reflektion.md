@@ -23,3 +23,25 @@ I kapitel 5 betonas vikten av **code formatting** som ett verktyg för kommunika
 Till exempel har jag i min `FormValidator`-klass använt blanklinjer för att separera metoderna, vilket gör att varje metod framträder tydligare. Genom att hålla filerna under 200 rader har jag följt rekommendationerna för **file size**, vilket gör det enklare att överblicka koden. Dessa principer förbättras kodens **structure** och underlättar samarbetet med andra programmerare. 
 
 Jag anser dock att dessa insikter är självklarheter inom programmering, och att informationen kan upplevas som överflödig.
+
+## Kapitel 6: Objects and Data Structures
+I min kod har jag använt **Data Abstraction** genom att dölja implementeringen av valideringslogiken för varje fält bakom specifika validator-klasser. Exempelvis är det inte nödvändigt att veta hur e-post eller telefonnummer valideras eftersom detta hanteras av privata metoder och klasser som `EmailValidator` och `PhoneNumberValidator`. Detta gör koden mer abstrakt och underlättar framtida ändringar.
+
+Jag har också följt **The Law of Demeter** genom att undvika kedjor av metodanrop och istället hålla varje metod ansvarig för en specifik uppgift. Till exempel i `validateField` kallar jag inte direkt på andra metoders interna variabler utan förlitar mig på objektens abstraktion för att returnera resultat. Detta minskar beroendet mellan olika delar av koden och gör den enklare att underhålla.
+
+```javascript
+valid &= this.validateField(this.#emailValidator.validate(formValues.email), "emailError")
+valid &= this.validateField(this.#phoneValidator.validate(formValues.phone), "phoneError")
+```
+
+## Kapitel 7: Error Handling
+I kapitel 7 betonas vikten av att hantera fel på ett robust och tydligt sätt genom att använda **exceptions** istället för att returnera felkoder. I min kod för `FormValidator` har jag implementerat **unchecked exceptions** när jag hanterar valideringsfel, vilket gör att jag slipper skriva kod för att fånga alla möjliga fel i varje metod. Genom att kasta undantag som ger kontextuell information, till exempel vad som gått fel i valideringen, har jag förbättrat läsbarheten och underlättat felsökning.
+
+Jag har även använt principen att **Provide Context with Exceptions** genom att ge detaljerade felmeddelanden, som vilken typ av fält som orsakade valideringsfelet. Detta gör det tydligare för både utvecklare och användare att förstå vad som gått fel och var i koden det inträffade.
+
+Ett exempel från koden där jag använder denna princip:
+```javascript
+if (!result.isValid) {
+    throw new ValidationException(`Validation failed for field: ${fieldName}`);
+}
+```

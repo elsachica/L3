@@ -15,7 +15,8 @@ import {
  * @requires ../../src/validators/validator.js
  * @version 1.0.0
  * @description Validates user input for the verification form and redirects to the success page if all inputs are valid.
- * @author Elsa Gas Wikström
+ * @author 
+ * Elsa Gas Wikström
  */
 
 class FormValidator {
@@ -40,10 +41,13 @@ class FormValidator {
    */
   async handleSubmit(e) {
     e.preventDefault()
-    const valid = await this.validateForm()
-
-    if (valid) {
-      this.redirectToSuccessPage()
+    try {
+      const valid = await this.validateForm()
+      if (valid) {
+        this.redirectToSuccessPage()
+      }
+    } catch (error) {
+      this.handleError(error)
     }
   }
 
@@ -55,27 +59,31 @@ class FormValidator {
   async validateForm() {
     let valid = true
 
-    // Clear previous error messages
-    this.clearErrorMessages()
+    try {
+      // Clear previous error messages
+      this.clearErrorMessages()
 
-    // Get form values
-    const formValues = this.getFormValues();
-    const [firstName, lastName] = formValues.name.split(" ")
+      // Get form values
+      const formValues = this.getFormValues()
+      const [firstName, lastName] = formValues.name.split(" ")
 
-    // Validate each field
-    valid &= this.validateField(this.#nameValidator.validate(firstName, lastName), "nameError")
-    valid &= this.validateField(this.#emailValidator.validate(formValues.email), "emailError")
-    valid &= this.validateField(this.#phoneValidator.validate(formValues.phone), "phoneError")
-    valid &= this.validateField(this.#streetValidator.validate(formValues.address), "addressError")
-    valid &= this.validateField(this.#postalCodeValidator.validate(formValues.postalCode), "postalCodeError")
-    valid &= this.validateField(this.#cityValidator.validate(formValues.city), "cityError")
-    
-    const dateFormatResult = this.#dateFormatValidator.validate(formValues.dob)
-    valid &= this.validateField(dateFormatResult, "dobError")
-    
-    // Validate age if date format is valid
-    if (dateFormatResult.isValid) {
-      valid &= this.validateField(this.#ageValidator.validate(formValues.dob), "dobError")
+      // Validate each field
+      valid &= this.validateField(this.#nameValidator.validate(firstName, lastName), "nameError")
+      valid &= this.validateField(this.#emailValidator.validate(formValues.email), "emailError")
+      valid &= this.validateField(this.#phoneValidator.validate(formValues.phone), "phoneError")
+      valid &= this.validateField(this.#streetValidator.validate(formValues.address), "addressError")
+      valid &= this.validateField(this.#postalCodeValidator.validate(formValues.postalCode), "postalCodeError")
+      valid &= this.validateField(this.#cityValidator.validate(formValues.city), "cityError")
+      
+      const dateFormatResult = this.#dateFormatValidator.validate(formValues.dob)
+      valid &= this.validateField(dateFormatResult, "dobError")
+      
+      // Validate age if date format is valid
+      if (dateFormatResult.isValid) {
+        valid &= this.validateField(this.#ageValidator.validate(formValues.dob), "dobError")
+      }
+    } catch (error) {
+      throw new Error("Error during form validation: " + error.message)
     }
 
     return valid
@@ -89,14 +97,18 @@ class FormValidator {
    * @private
    */
   validateField(result, errorElementId) {
-    const errorElement = document.getElementById(errorElementId)
-    if (!result.isValid) {
-      errorElement.textContent = result.error
-      errorElement.classList.add("show")
-      return false
-    } else {
-      errorElement.classList.remove("show")
-      return true
+    try {
+      const errorElement = document.getElementById(errorElementId)
+      if (!result.isValid) {
+        errorElement.textContent = result.error
+        errorElement.classList.add("show")
+        return false
+      } else {
+        errorElement.classList.remove("show")
+        return true
+      }
+    } catch (error) {
+      throw new Error(`Error validating field ${errorElementId}: ${error.message}`)
     }
   }
 
@@ -105,16 +117,20 @@ class FormValidator {
    * @private
    */
   clearErrorMessages() {
-    const errorElements = [
-      "nameError", "emailError", "phoneError", 
-      "addressError", "postalCodeError", "cityError", 
-      "dobError"
-    ]
+    try {
+      const errorElements = [
+        "nameError", "emailError", "phoneError", 
+        "addressError", "postalCodeError", "cityError", 
+        "dobError"
+      ]
 
-    errorElements.forEach(id => {
-      document.getElementById(id).textContent = ""
-      document.getElementById(id).classList.remove("show")
-    })
+      errorElements.forEach(id => {
+        document.getElementById(id).textContent = ""
+        document.getElementById(id).classList.remove("show")
+      })
+    } catch (error) {
+      throw new Error("Error clearing error messages: " + error.message)
+    }
   }
 
   /**
@@ -123,14 +139,18 @@ class FormValidator {
    * @private
    */
   getFormValues() {
-    return {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      address: document.getElementById("address").value,
-      postalCode: document.getElementById("postalCode").value,
-      city: document.getElementById("city").value,
-      dob: document.getElementById("dob").value
+    try {
+      return {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        postalCode: document.getElementById("postalCode").value,
+        city: document.getElementById("city").value,
+        dob: document.getElementById("dob").value
+      }
+    } catch (error) {
+      throw new Error("Error getting form values: " + error.message)
     }
   }
 
@@ -139,8 +159,21 @@ class FormValidator {
    * @private
    */
   redirectToSuccessPage() {
-    const url = `/success.html?email=${encodeURIComponent(this.getFormValues().email)}&phone=${encodeURIComponent(this.getFormValues().phone)}&address=${encodeURIComponent(this.getFormValues().address)}&postalCode=${encodeURIComponent(this.getFormValues().postalCode)}&city=${encodeURIComponent(this.getFormValues().city)}&dob=${encodeURIComponent(this.getFormValues().dob)}`
-    window.location.href = url
+    try {
+      const url = `/success.html?email=${encodeURIComponent(this.getFormValues().email)}&phone=${encodeURIComponent(this.getFormValues().phone)}&address=${encodeURIComponent(this.getFormValues().address)}&postalCode=${encodeURIComponent(this.getFormValues().postalCode)}&city=${encodeURIComponent(this.getFormValues().city)}&dob=${encodeURIComponent(this.getFormValues().dob)}`
+      window.location.href = url
+    } catch (error) {
+      throw new Error("Error redirecting to success page: " + error.message)
+    }
+  }
+
+  /**
+   * Handles errors by logging them to the console.
+   * @param {Error} error - The error object.
+   * @private
+   */
+  handleError(error) {
+    console.error(error.message)
   }
 }
 
