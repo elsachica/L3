@@ -59,29 +59,38 @@ Here are some GIFs demonstrating how to use the application:
 
 ## File structure
    ```bash
-├── src/
-│   ├── app.js
-│   └── validators/
-│       └── validator.js
-├── public/
-│   ├── js/
-│   │   └── form.js          # Handles form validation logic.
-│   ├── form.html            # HTML file for the validation form.
-│   ├── index.html           # Home page of the application.
-│   └── success.html         # Page displayed after successful form submission.
+   ├── src/
+   │   ├── app.js                         # Main file for the Express app
+   │   └── validators/
+   │       └── validator.js
+   ├── public/
+   │   ├── js/
+   │   │   ├── form.js                    # Handles form validation logic.
+   │   │   └── errors/
+   │   │       ├── index.js               # Exports custom error classes.
+   │   │       ├── ValidationError.js
+   │   │       ├── NetworkError.js
+   │   │       └── LogicalError.js
+   │   ├── form.html                      # HTML file for the validation form.
+   │   ├── index.html                     # Home page of the application.
+   │   └── success.html                   # Page displayed after successful form submission.
    ```
 
 ### Explanation of Public Folder
 
 - **`js/`**
   - **`form.js`**: This file contains the logic for validating user inputs in the form, managing real-time feedback for errors, and handling form submission. It integrates multiple validators for different types of user data and prevents submission until all fields are valid.
+  - **`errors/`**
+    - **`index.js`**: This file exports all custom error classes used in the application.
+    - **`ValidationError.js`**: Defines a custom error class for handling validation errors.
+    - **`NetworkError.js`**: Defines a custom error class for handling network-related errors.
+    - **`LogicalError.js`**: Defines a custom error class for handling logical errors in the application.
 
 - **`index.html`**: The main landing page for the application. It typically serves as an entry point for users, providing links to the form or other relevant information about the project.
 
 - **`form.html`**: This HTML file presents the validation form to the user, allowing them to input their data. It includes various input fields for name, email, phone number, address, postal code, city, and date of birth, along with corresponding error messages.
 
 - **`success.html`**: This HTML page is displayed when the user successfully submits the form with valid inputs. It usually contains a confirmation message and may also display the validated information back to the user.
-
 
 ## Dependencies
 The project uses the following dependencies:

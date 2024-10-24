@@ -9,6 +9,8 @@ import {
   AgeValidator
 } from "../../src/validators/validator.js"
 
+import { ValidationError, NetworkError, LogicalError } from "../errors/index.js"
+
 /**
  * @fileoverview Handles form validation for the verification form.
  * @module form
@@ -18,8 +20,6 @@ import {
  * @author 
  * Elsa Gas Wikström
  */
-
-
 class FormValidator {
   constructor(formId) {
     this.emailValidator = new EmailValidator()
@@ -75,16 +75,17 @@ class FormValidator {
       valid &= this.validateField(this.streetValidator.validate(formValues.address), "addressError")
       valid &= this.validateField(this.postalCodeValidator.validate(formValues.postalCode), "postalCodeError")
       valid &= this.validateField(this.cityValidator.validate(formValues.city), "cityError")
-      
+
       const dateFormatResult = this.dateFormatValidator.validate(formValues.dob)
       valid &= this.validateField(dateFormatResult, "dobError")
-      
+
       // Validate age if date format is valid
       if (dateFormatResult.isValid) {
         valid &= this.validateField(this.ageValidator.validate(formValues.dob), "dobError")
       }
     } catch (error) {
-      throw new Error("Error during form validation: " + error.message)
+      // Kasta ett specifikt fel
+      throw new ValidationError("Error during form validation: " + error.message)
     }
 
     return valid
@@ -109,7 +110,8 @@ class FormValidator {
         return true
       }
     } catch (error) {
-      throw new Error(`Error validating field ${errorElementId}: ${error.message}`)
+      // Kasta ett specifikt fel
+      throw new LogicalError(`Error validating field ${errorElementId}: ${error.message}`)
     }
   }
 
@@ -130,7 +132,7 @@ class FormValidator {
         document.getElementById(id).classList.remove("show")
       })
     } catch (error) {
-      throw new Error("Error clearing error messages: " + error.message)
+      throw new LogicalError("Error clearing error messages: " + error.message)
     }
   }
 
@@ -151,7 +153,7 @@ class FormValidator {
         dob: document.getElementById("dob").value
       }
     } catch (error) {
-      throw new Error("Error getting form values: " + error.message)
+      throw new LogicalError("Error getting form values: " + error.message)
     }
   }
 
@@ -164,7 +166,7 @@ class FormValidator {
       const url = `/success.html?email=${encodeURIComponent(this.getFormValues().email)}&phone=${encodeURIComponent(this.getFormValues().phone)}&address=${encodeURIComponent(this.getFormValues().address)}&postalCode=${encodeURIComponent(this.getFormValues().postalCode)}&city=${encodeURIComponent(this.getFormValues().city)}&dob=${encodeURIComponent(this.getFormValues().dob)}`
       window.location.href = url
     } catch (error) {
-      throw new Error("Error redirecting to success page: " + error.message)
+      throw new NetworkError("Error redirecting to success page: " + error.message)
     }
   }
 
@@ -174,7 +176,7 @@ class FormValidator {
    * @private
    */
   handleError(error) {
-    console.error(error.message)
+    console.error(`${error.name}: ${error.message}`)
   }
 }
 
