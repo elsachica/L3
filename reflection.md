@@ -27,9 +27,9 @@ export class StreetValidator {
 <br>
 
 ## Kapitel 3: Meaningful names
-I kapitel 3 diskuteras vikten av små funktioner som endast gör en sak. Jag har anpassat min kod genom att bryta ner större funktioner till mindre, mer hanterbara delar, som följer principen att varje funktion ska ha ett enda ansvar. Exempelvis har jag separerat valideringslogiken i `form.js` genom att skapa metoder som `validateField()`, `clearErrorMessages()`, och `getFormValues()`. Varje metod har ett tydligt syfte, vilket förbättrar läsbarheten och gör koden enklare att underhålla. Begrepp som **Do One Thing** och **Stepdown Rule** har varit centrala i denna refaktorering.
+I kapitel 3 diskuteras vikten av små funktioner som endast gör en sak. Jag har anpassat min kod genom att bryta ner större funktioner till mindre, mer hanterbara delar, som följer principen att varje funktion ska ha ett enda ansvar. Exempelvis har jag separerat valideringslogiken i `FormValidator.js` genom att skapa metoder som `validateField()`, `clearErrorMessages()`, och `getFormValues()`. Varje metod har ett tydligt syfte, vilket förbättrar läsbarheten och gör koden enklare att underhålla. Begrepp som **Do One Thing** och **Stepdown Rule** har varit centrala i denna refaktorering.
 
-Från `form.js`:
+Från `FormValidator.js`:
 ```javascript
   validateField(result, errorElementId) {
     try {
@@ -178,7 +178,7 @@ export class EmailValidator {
 ```
 Jag följer också **The Law of Demeter** genom att hålla mina anrop enkla.
 
-`form.js`:
+`FormValidator.js`:
 ```javascript
   validateField(result, errorElementId) {
     try {
@@ -204,7 +204,7 @@ I `FormValidator`-klassen har jag implementerat **Use Exceptions Rather Than Ret
 
 Dessutom använder jag **Provide Context with Exceptions** genom att inkludera specifika felmeddelanden när jag kastar undantag. Genom att lägga till kontextuell information, som vilket steg i valideringsprocessen som misslyckades, gör jag det lättare att felsöka och förstå vad som gick fel. Detta underlättar för andra programmerare att snabbt identifiera och åtgärda problem.
 
-`form.js`:
+`FormValidator.js`:
 ```javascript
   async handleSubmit(e) {
     e.preventDefault()

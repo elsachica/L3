@@ -31,7 +31,7 @@ To install and run this project:
     ```
 
 ## Main Entry Point
-The main entry point for this project is `src/app.js`, which starts the Express server and handles routing. The form validation logic for phone numbers and emails is handled in `public/js/form.js`.
+The main entry point for this project is `src/app.js`, which starts the Express server and handles routing. The form validation logic for phone numbers and emails is handled in `public/js/FormValidator.js`.
 
 ## Usage
 
@@ -60,12 +60,12 @@ Here are some GIFs demonstrating how to use the application:
 ## File structure
    ```bash
    ├── src/
-   │   ├── app.js                         # Main file for the Express app
+   │   ├── app.js                         # Main file for the Express app.
    │   └── validators/
    │       └── validator.js
    ├── public/
    │   ├── js/
-   │   │   ├── form.js                    # Handles form validation logic.
+   │   │   ├── FormValidator.js                    # Handles form validation logic.
    │   │   └── errors/
    │   │       ├── index.js               # Exports custom error classes.
    │   │       ├── ValidationError.js
@@ -79,7 +79,7 @@ Here are some GIFs demonstrating how to use the application:
 ### Explanation of Public Folder
 
 - **`js/`**
-  - **`form.js`**: This file contains the logic for validating user inputs in the form, managing real-time feedback for errors, and handling form submission. It integrates multiple validators for different types of user data and prevents submission until all fields are valid.
+  - **`FormValidator.js`**: This file contains the logic for validating user inputs in the form, managing real-time feedback for errors, and handling form submission. It integrates multiple validators for different types of user data and prevents submission until all fields are valid.
   - **`errors/`**
     - **`index.js`**: This file exports all custom error classes used in the application.
     - **`ValidationError.js`**: Defines a custom error class for handling validation errors.
