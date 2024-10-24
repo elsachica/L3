@@ -1,5 +1,19 @@
 # Testrapport
 
+## Kravspecifikation
+
+1. **Användare**: Användaren ska kunna ange sina uppgifter för att kontrollera att de är korrekta.
+   - **Krav**:
+     - För- och efternamn krävs.
+     - E-postadress ska vara i giltigt format.
+     - Telefonnummer ska vara giltigt.
+     - Adress, postnummer och stad ska anges.
+     - Användaren måste vara minst 3 år gammal och inte äldre än 120 år.
+
+2. **Validering**: Appen ska ge realtidsfeedback på fälten i formuläret och visa felmeddelanden vid ogiltiga inmatningar.
+
+3. **Navigering**: Användaren ska dirigeras till en framgångssida om alla inmatningar är giltiga.
+
 ## Testmetod
 Tester genomfördes manuellt genom att följa de definierade testfallen. Varje testfall utfördes och resultaten registrerades.
 

@@ -84,7 +84,6 @@ class FormValidator {
         valid &= this.validateField(this.ageValidator.validate(formValues.dob), "dobError")
       }
     } catch (error) {
-      // Kasta ett specifikt fel
       throw new ValidationError("Error during form validation: " + error.message)
     }
 
@@ -110,7 +109,6 @@ class FormValidator {
         return true
       }
     } catch (error) {
-      // Kasta ett specifikt fel
       throw new LogicalError(`Error validating field ${errorElementId}: ${error.message}`)
     }
   }
@@ -180,5 +178,6 @@ class FormValidator {
   }
 }
 
-// Initialize the FormValidator with the ID of the form
 new FormValidator("verificationForm")
+
+// 126

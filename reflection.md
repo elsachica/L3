@@ -29,7 +29,7 @@ export class StreetValidator {
 ## Kapitel 3: Meaningful names
 I kapitel 3 diskuteras vikten av små funktioner som endast gör en sak. Jag har anpassat min kod genom att bryta ner större funktioner till mindre, mer hanterbara delar, som följer principen att varje funktion ska ha ett enda ansvar. Exempelvis har jag separerat valideringslogiken i `FormValidator.js` genom att skapa metoder som `validateField()`, `clearErrorMessages()`, och `getFormValues()`. Varje metod har ett tydligt syfte, vilket förbättrar läsbarheten och gör koden enklare att underhålla. Begrepp som **Do One Thing** och **Stepdown Rule** har varit centrala i denna refaktorering.
 
-Från `FormValidator.js`:
+`FormValidator.js`:
 ```javascript
   validateField(result, errorElementId) {
     try {
@@ -43,7 +43,7 @@ Från `FormValidator.js`:
         return true
       }
     } catch (error) {
-      throw new Error(`Error validating field ${errorElementId}: ${error.message}`)
+      throw new LogicalError(`Error validating field ${errorElementId}: ${error.message}`)
     }
   }
 ```
@@ -62,7 +62,7 @@ Från `FormValidator.js`:
         document.getElementById(id).classList.remove("show")
       })
     } catch (error) {
-      throw new Error("Error clearing error messages: " + error.message)
+      throw new LogicalError("Error clearing error messages: " + error.message)
     }
   }
 ```
@@ -80,7 +80,7 @@ Från `FormValidator.js`:
         dob: document.getElementById("dob").value
       }
     } catch (error) {
-      throw new Error("Error getting form values: " + error.message)
+      throw new LogicalError("Error getting form values: " + error.message)
     }
   }
 ```
@@ -110,16 +110,16 @@ I min kod använder jag metoder med tydliga namn, som `validateField()`, vilket 
       valid &= this.validateField(this.streetValidator.validate(formValues.address), "addressError")
       valid &= this.validateField(this.postalCodeValidator.validate(formValues.postalCode), "postalCodeError")
       valid &= this.validateField(this.cityValidator.validate(formValues.city), "cityError")
-      
+
       const dateFormatResult = this.dateFormatValidator.validate(formValues.dob)
       valid &= this.validateField(dateFormatResult, "dobError")
-      
+
       // Validate age if date format is valid
       if (dateFormatResult.isValid) {
         valid &= this.validateField(this.ageValidator.validate(formValues.dob), "dobError")
       }
     } catch (error) {
-      throw new Error("Error during form validation: " + error.message)
+      throw new ValidationError("Error during form validation: " + error.message)
     }
 
     return valid
@@ -139,7 +139,8 @@ Jag anser dock att dessa insikter är självklarheter inom programmering, och at
 <br>
 
 ## Kapitel 6: Objects and Data Structures
-I min kod använder jag **Data Abstraction** genom att ha separata validatorer för olika typer av data, som e-post och telefonnummer. Varje validator fokuserar på sin egen logik, vilket gör koden lättare att förstå och ändra.
+I min kod tillämpar jag **Data Abstraction** genom att använda separata validatorer för olika datatyper, såsom e-post och telefonnummer. Varje validator har ett tydligt fokus på sin egen logik, vilket bidrar till en mer lättförståelig och modulär kodbas. Detta gör det enklare att underhålla och ändra koden i framtiden.
+
 
 `EmailValidator.js`:
 
@@ -176,7 +177,7 @@ export class EmailValidator {
   }
 }
 ```
-Jag följer också **The Law of Demeter** genom att hålla mina anrop enkla.
+Jag följer också **The Law of Demeter** genom att hålla mina anrop enkla och tydliga. Detta gör att mina klasser kommunicerar med varandra på ett mer strukturerat sätt, vilket minimerar beroenden och underlättar förvaltningen av koden.
 
 `FormValidator.js`:
 ```javascript
@@ -192,7 +193,7 @@ Jag följer också **The Law of Demeter** genom att hålla mina anrop enkla.
         return true
       }
     } catch (error) {
-      throw new Error(`Error validating field ${errorElementId}: ${error.message}`)
+      throw new LogicalError(`Error validating field ${errorElementId}: ${error.message}`)
     }
   }
 ```
@@ -200,25 +201,21 @@ Jag följer också **The Law of Demeter** genom att hålla mina anrop enkla.
 <br>
 
 ## Kapitel 7: Error Handling
-I `FormValidator`-klassen har jag implementerat **Use Exceptions Rather Than Return Codes** genom att kasta undantag i metoden `validateField`. Om valideringen misslyckas, kastas ett undantag som fångas i `handleSubmit`. Detta ger en mer robust felhantering, eftersom det gör att vi kan avbryta processen tidigt och fånga fel på ett centralt ställe, vilket förbättrar kodens läsbarhet och underhåll.
+I min kod har jag implementerat konceptet **Use Exceptions Rather Than Return Codes** genom att använda egna undantagsklasser som `ValidationError`, `LogicalError` och `NetworkError`. Istället för att använda return-koder för att indikera fel, kastar jag undantag som ger mer kontext och information om vad som gick fel. Detta förbättrar läsbarheten och gör det enklare att hantera fel på ett strukturerat sätt.
 
-Dessutom använder jag **Provide Context with Exceptions** genom att inkludera specifika felmeddelanden när jag kastar undantag. Genom att lägga till kontextuell information, som vilket steg i valideringsprocessen som misslyckades, gör jag det lättare att felsöka och förstå vad som gick fel. Detta underlättar för andra programmerare att snabbt identifiera och åtgärda problem.
+Jag har också tillämpat **Provide Context with Exceptions** genom att inkludera detaljerade felmeddelanden som beskriver problemet när ett undantag kastas. Till exempel, i metoden `validateField`, när valideringen misslyckas, kastar jag ett `LogicalError` med ett meddelande som specificerar vilket fält som orsakade problemet. Detta ger en tydlig förståelse för användaren och gör det enklare att felsöka.
 
-`FormValidator.js`:
+`LogicalError.js`
 ```javascript
-  async handleSubmit(e) {
-    e.preventDefault()
-    try {
-      const valid = await this.validateForm()
-      if (valid) {
-        this.redirectToSuccessPage()
-      }
-    } catch (error) {
-      this.handleError(error)
-    }
+export class LogicalError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = "LogicalError"
   }
+}
 ```
 
+`FormValidator.js`:
 ```javascript
   validateField(result, errorElementId) {
     try {
@@ -232,7 +229,7 @@ Dessutom använder jag **Provide Context with Exceptions** genom att inkludera s
         return true
       }
     } catch (error) {
-      throw new Error(`Error validating field ${errorElementId}: ${error.message}`)
+      throw new LogicalError(`Error validating field ${errorElementId}: ${error.message}`)
     }
   }
 ```
@@ -244,7 +241,7 @@ I min kod har jag implementerat **Using Third-Party Code** genom att importera o
 
 Jag har även reflekterat över **Clean Boundaries** genom att säkerställa att varje validator ansvarar för en viss typ av validering. Detta tillvägagångssätt gör det enkelt att ändra eller lägga till nya validatorer utan att påverka hela systemet. Denna struktur ökar flexibiliteten och underlättar framtida modifieringar, vilket gör min kod mer hållbar.
 
-Från min src/validators/address/cityValidator.js
+`cityValidator.js`
 ```javascript
   validate(city) {
     if (!city) {
@@ -264,6 +261,8 @@ Från min src/validators/address/cityValidator.js
 
 ## Kapitel 9: Unit Tests
 I kapitel 9 har jag reflekterat över vikten av **Unit Tests** i min kodbas. Jag använder **Test Driven Development (TDD)** för att säkerställa att varje validator fungerar korrekt. Till exempel har jag skapat en testsuite för `EmailValidator` som omfattar olika scenarier:
+
+`emailValidator.test.js`
 ```javascript
 describe("EmailValidator Tests", () => {
   let emailValidator

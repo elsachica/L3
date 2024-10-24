@@ -26,3 +26,5 @@ export { DateFormatValidator, AgeValidator } from "./age/index.js"
 
 // address
 export { PostalCodeValidator, StreetValidator, CityValidator, AddressValidator } from "./address/index.js"
+
+// 7

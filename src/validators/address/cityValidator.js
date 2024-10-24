@@ -23,3 +23,5 @@ export class CityValidator {
     return { isValid: true }
   }
 }
+
+// 12
