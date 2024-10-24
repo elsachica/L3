@@ -1,7 +1,9 @@
 # Reflektion - Clean Code kapitel 2-11
 
 ## Kapitel 2: Meaningful names
-I kapitel 2 betonas vikten av tydliga och avsiktsförklarande namn. I min kod har jag omarbetat variabelnamn och funktionsnamn för att bättre beskriva deras syfte och sammanhang. Jag har också undvikit förkortningar som kan leda till förvirring och sett till att namnen ger svar på de viktigaste frågorna: vad variabeln representerar och hur den används. Dessutom har jag uppdaterat mina metoder i valideringsklasserna. Exempelvis har metoder som tidigare hette `validateStreet()` nu förenklats till `validate()`, vilket gäller för alla klasser i validators mappen. Denna förändring gör koden inte bara lättare att läsa utan även enklare att underhålla.
+I kapitel 2 betonas vikten av tydliga och avsiktsförklarande namn. Jag har omarbetat variabel- och metodnamn för att bättre beskriva deras syfte och undvikit förkortningar som kan skapa förvirring. Namnen följer nu principerna "**Use Intention-Revealing Names**", "**Use Searchable Names"**, och "**Use Pronounceable Names**". 
+
+Dessutom har jag uppdaterat mina metoder i valideringsklasserna. Exempelvis har metoder som tidigare hette `validateStreet()` nu förenklats till `validate()`, vilket gäller för alla klasser i validators mappen. Detta följer principen **Don’t Add Gratuitous Context**. Denna förändring gör koden inte bara lättare att läsa utan även enklare att underhålla.
 
 Från `streetValidator.js`:
 ```javascript
@@ -330,7 +332,9 @@ export class EmailValidator {
 <br>
 
 ## Kapitel 11: Systems
-Kapitel 11 handlar om hur man konstruerar system och vikten av att separera olika aspekter av en applikation. I min kod använder jag **Dependency Injection** för att hantera mina validatorer. Genom att skapa instanser av varje validator i `FormValidator`-konstruktorn, säkerställer jag att varje validator är oberoende och lätt att byta ut vid behov. Detta ökar flexibiliteten och gör systemet mer modulärt.
+Kapitel 11 handlar om hur man konstruerar system och vikten av att separera olika aspekter av en applikation. I min kod använder jag **Dependency Injection (DI)** för att hantera mina validatorer, vilket är en teknik som möjliggör modulära och skalbara system. Genom att skapa instanser av varje validator i `FormValidator`-konstruktorn, säkerställer jag att varje validator är oberoende och lätt att byta ut vid behov. Detta ökar flexibiliteten och gör systemet mer modulärt.
+
+Med DI blir det också enklare att utöka systemet. Om jag senare behöver lägga till fler validerare eller ändra valideringslogik, behöver jag bara injicera dessa nya komponenter utan att förändra själva `FormValidator`-klassen. Detta är ett tydligt exempel på hur DI kan användas för att skala upp systemet över tid utan att bryta befintlig kod. Genom att använda DI kan jag säkerställa att min kod är både hållbar och lätt att underhålla, vilket är avgörande för långsiktig framgång.
 
 Hur jag injicerar validatorer i `FormValidator`:
 ```javascript
