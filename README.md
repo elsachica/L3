@@ -65,7 +65,7 @@ Here are some GIFs demonstrating how to use the application:
    │       └── validator.js
    ├── public/
    │   ├── js/
-   │   │   ├── FormValidator.js                    # Handles form validation logic.
+   │   │   ├── FormValidator.js           # Handles form validation logic.
    │   │   └── errors/
    │   │       ├── index.js               # Exports custom error classes.
    │   │       ├── ValidationError.js
